@@ -1,15 +1,35 @@
 ﻿@model IEnumerable<ProjektWypozyczalnia.Models.Reservation>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista rezerwacji";
 }
 
 <h1>Lista rezerwacji</h1>
 
+<div class="mb-3">
+    <form asp-action="Index" method="get" class="form-inline">
+        <div class="form-group">
+            <label for="registrationNumber" class="mr-2">Filtruj według numeru rejestracyjnego:</label>
+            <select name="registrationNumber" id="registrationNumber" class="form-control mr-2">
+                <option value="">-- Wszystkie --</option>
+                @foreach (var car in ViewData["Cars"] as IEnumerable<ProjektWypozyczalnia.Models.Car>)
+
+                {
+                    <option value="@car.RegistrationNumber">
+                        @car.RegistrationNumber
+                    </option>
+                }
+            </select>
+            <button type="submit" class="btn btn-primary">Filtruj</button>
+        </div>
+    </form>
+</div>
+
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Dodaj nową rezerwację</a>
 </p>
-<table class="table">
+
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -27,33 +47,35 @@
             <th>
                 @Html.DisplayNameFor(model => model.UserId)
             </th>
-            <th></th>
+            <th>Akcje</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status.Description)
-            </td>
-            <td>
+        @foreach (var item in Model)
+
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Description)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Car.RegistrationNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edytuj</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Szczegóły</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Usuń</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

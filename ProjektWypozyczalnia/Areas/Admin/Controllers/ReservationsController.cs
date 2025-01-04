@@ -21,11 +21,28 @@ namespace ProjektWypozyczalnia.Areas.Admin.Controllers
 
         // GET: Admin/Reservations
         [Route("Admin/Reservations")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? registrationNumber)
         {
-            var applicationDbContext = _context.Reservation.Include(r => r.Car).Include(r => r.Status);
-            return View(await applicationDbContext.ToListAsync());
+            var cars = await _context.Car.ToListAsync();
+            ViewData["Cars"] = cars;
+
+            var reservations = _context.Reservation
+                .Include(r => r.Car)
+                .Include(r => r.Status)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(registrationNumber))
+            {
+                reservations = reservations.Where(r => r.Car.RegistrationNumber == registrationNumber);
+            }
+
+            return View(await reservations.ToListAsync());
         }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var applicationDbContext = _context.Reservation.Include(r => r.Car).Include(r => r.Status);
+        //    return View(await applicationDbContext.ToListAsync());
+        //}
 
         // GET: Admin/Reservations/Details/5
         [Route("Admin/Reservations/Details/{id}")]
