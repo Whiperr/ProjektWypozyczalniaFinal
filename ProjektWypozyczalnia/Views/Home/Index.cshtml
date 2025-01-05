@@ -18,6 +18,7 @@
                 @* <img class="card-img-top" src="~/images/@car.Id.jpg" alt="Car Image" style="height: 200px; object-fit: cover;"> *@
 
                 <div class="card-body">
+                    <h5 class="card-title">@car.Model.Manufacturer.Name</h5>
                     <!-- Model samochodu -->
                     <h5 class="card-title">@car.Model.Name</h5>
 
@@ -27,17 +28,10 @@
                     <!-- Typ samochodu -->
                     <p class="card-text">Type: @car.Type.Description</p>
                     <!-- Status samochodu -->
-                    
-                    @* @if (car.Reservations.Any())
+                    @* @foreach (var reservation in car.Reservations)
                     {
-                        <!-- Sprawdzamy, czy samochód ma rezerwację i wyświetlamy status pierwszej rezerwacji -->
-                        <p class="card-text">Status: @car.Reservations.First().Status.Description</p>
-                    }
-                    else
-                    {
-                        <p class="card-text">Status: No status available</p>  <!-- W przypadku braku statusu -->
+                        <p class="card-text">Status: @reservation.Status.Description</p>
                     } *@
-                    
                     <!-- Przyciski -->
                     <div class="d-flex justify-content-between align-items-center">
 
