@@ -7,3 +7,6 @@ Utwórz Car Np PO 1234 Wybieramy z listy
 Utwórz Status Np 1-Dostępny/2-Niedostępny lub Zatwierzona / Oczekuje na zatwierdzenie
 Utwórz Rezerwacje
 Utwórz konto Użytkownika sprawdź zabezpieczenia
+
+
+Jeśli nowo utworzony user nie dostał rangi automatycznie uruchom ponownie projekt 
